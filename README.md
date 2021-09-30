@@ -29,7 +29,7 @@ TS only.
 
 # Usage
 
-### 1. Wrap your root App.tsx to ParallaxProvider to provide context value for hooks.
+### 1. look example usage.
 
 ```tsx
 import React from 'react'
