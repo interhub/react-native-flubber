@@ -9,7 +9,7 @@ export type FlubberConfig = {
   initialIndex?: number
 }
 
-const useFlubber = (paths: string[], config?: FlubberConfig) => {
+export const useFlubber = (paths: string[], config?: FlubberConfig) => {
   const step = config?.step || 0.01
   const initialIndex = config?.initialIndex || 0
   const [currentIndex, setFlubberIndex] = useState(initialIndex)
@@ -52,4 +52,3 @@ const useFlubber = (paths: string[], config?: FlubberConfig) => {
 
   return {pathRef, setFlubberIndex}
 }
-export default useFlubber

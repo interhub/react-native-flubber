@@ -1,8 +1,9 @@
 "use strict";
 exports.__esModule = true;
+exports.useFlubber = void 0;
 var react_1 = require("react");
 var flubber = require('flubber');
-var useFlubber = function (paths, config) {
+exports.useFlubber = function (paths, config) {
     var step = (config === null || config === void 0 ? void 0 : config.step) || 0.01;
     var initialIndex = (config === null || config === void 0 ? void 0 : config.initialIndex) || 0;
     var _a = react_1.useState(initialIndex), currentIndex = _a[0], setFlubberIndex = _a[1];
@@ -46,4 +47,3 @@ var useFlubber = function (paths, config) {
     }, [currentIndex]);
     return { pathRef: pathRef, setFlubberIndex: setFlubberIndex };
 };
-exports["default"] = useFlubber;

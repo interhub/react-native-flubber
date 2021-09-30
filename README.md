@@ -6,9 +6,9 @@
 
 TS only.
 
-[video example source link 🪐]( http://www.interhub.ml/source/flubber-ex.MP4 )
+[video example source link 🪐]( http://www.interhub.ml/source/flubber-ex.mp4 )
 
-![video example not loads 🤖]( http://www.interhub.ml/source/flubber-ex.MP4  )
+![video example not loads 🤖]( http://www.interhub.ml/source/flubber-ex.gif  ) 
 
 [repository code example from video*](https://github.com/interhub/rn-examples/tree/master/examples/FlubberSvg)
 
@@ -38,7 +38,8 @@ import Animated from 'react-native-reanimated'
 import Svg, {Path} from 'react-native-svg'
 
 import SIZE from '../../../src/config/SIZE'
-import useFlubber from '../../../lib/react-native-flubber'
+import {useFlubber} from 'react-native-flubber'
+
 
 const AnimatePath = Animated.createAnimatedComponent(Path)
 const AnimateSvg = Animated.createAnimatedComponent(Svg)
