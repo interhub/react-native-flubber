@@ -1,0 +1,21 @@
+{
+  "githubUrl": "https://github.com/interhub/react-native-accelerometer-parallax",
+  "npmPkg": "react-native-flubber",
+  "nameOverride": "react-native-flubber",
+  "examples": [
+    "https://www.npmjs.com/package/react-native-flubber",
+    "https://github.com/interhub/react-native-flubber"
+  ],
+  "images": [
+    "http://interhub.github.io/source/parallax-lib.gif"
+  ],
+  "ios": true,
+  "android": true,
+  "web": false,
+  "expo": true,
+  "windows": false,
+  "macos": false,
+  "unmaintained": false,
+  "dev": false,
+  "template": false
+}
