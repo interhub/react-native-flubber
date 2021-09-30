@@ -1,23 +1,28 @@
 {
   "name": "react-native-flubber",
   "version": "1.0.0",
-  "description": "react native flubber wrapper for set up animation to Animation Path component props",
+  "description": "react native flubber wrapper for ios and android to set up animation  to path component props",
   "main": "index.tsx",
   "scripts": {
     "publish": "sudo npm publish --access=public",
     "build": "npx tsc -p ./index.tsx -d"
   },
   "keywords": [
-    "react-native"
+    "react-native",
+    "flubber",
+    "react-native-flubber",
+    "react-native-svg",
+    "native-svg-animation",
+    "svg-interpolator",
+    "react-native-svg",
+    "svg-animation",
+    "reanimated"
   ],
   "author": "interhub",
   "license": "MIT",
   "peerDependencies": {
-    "expo-sensors": "^10.2.2",
     "react": "*",
-    "react-native": "^0.41.2",
-    "react-native-reanimated": "*",
-    "react-native-windows": "0.41.0-rc.1"
+    "flubber": "^0.4.2"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"

@@ -1,71 +1,55 @@
-import React, {useContext, useEffect} from 'react'
-import Animated, {Easing, useAnimatedStyle, useSharedValue, withTiming} from 'react-native-reanimated'
-import {Accelerometer} from 'expo-sensors'
-import {Platform} from 'react-native'
+import React, {useContext, useEffect, useRef, useState} from 'react'
 
-const AccelerometerContext = React.createContext<{posX: Animated.SharedValue<number>; posY: Animated.SharedValue<number>}>({} as any)
+const flubber = require('flubber')
 
-const IS_IOS = Platform.OS === 'ios'
-const INVERT_INDEX = IS_IOS ? -1 : 1
-const PERIOD = 30
+export type FlubberConfig = {
+  //from 0 to 1
+  step?: number
+  //start path index to show
+  initialIndex?: number
+}
 
-export const ParallaxProvider = ({children}: {children: React.ReactNode}) => {
-  const fixedRound = (num: number) => {
-    const DEC = 1
-    ;('worklet')
-    return parseFloat(Number(num || 0).toFixed(DEC))
-  }
+const useFlubber = (paths: string[], config?: FlubberConfig) => {
+  const step = config?.step || 0.01
+  const initialIndex = config?.initialIndex || 0
+  const [currentIndex, setFlubberIndex] = useState(initialIndex)
+  const initialPath = paths[initialIndex]
+  const [currentPath, setCurrentPath] = useState(initialPath)
+  const pathRef = useRef<any>()
 
-  const [posX, posY] = [useSharedValue(0), useSharedValue(0)]
-
-  const setUpNewPos = ({x, y}: {x: number; y: number}) => {
-    'worklet'
-    const DEFAULT_SPEED = 200
-    const newX = fixedRound(x * DEFAULT_SPEED)
-    const newY = fixedRound(y * DEFAULT_SPEED)
-    const config: Animated.WithTimingConfig = {duration: 500, easing: Easing.linear}
-    posX.value = withTiming(-newX, config)
-    posY.value = withTiming(newY, config)
+  const setNativePathProps = (path: string) => {
+    pathRef?.current?.setNativeProps({
+      d: path,
+    })
   }
 
   useEffect(() => {
-    Accelerometer.setUpdateInterval(PERIOD)
-
-    const sub = Accelerometer.addListener(({x, y}) => {
-      'worklet'
-      setUpNewPos({x: x * INVERT_INDEX, y: y * INVERT_INDEX})
-    })
+    let requestAnimationId: any
+    const startPath = currentPath
+    const endPath = paths[currentIndex]
+    if (!startPath || !endPath) return
+    const interpolator = flubber.interpolate(startPath, endPath)
+    setNativePathProps(startPath)
+    if (startPath === endPath) return
+    const setFrame = (val: number) => {
+      if (val >= 1 || val < 0) {
+        const newPathState = paths[currentIndex]
+        setNativePathProps(newPathState)
+        if (!newPathState) return
+        setCurrentPath(newPathState)
+        return
+      }
+      const newPath = interpolator(val)
+      setNativePathProps(newPath)
+      const nextValue = val + step
+      requestAnimationId = requestAnimationFrame(() => setFrame(nextValue))
+    }
+    setFrame(0)
     return () => {
-      sub.remove()
+      cancelAnimationFrame(requestAnimationId)
     }
-  }, [])
+  }, [currentIndex])
 
-  return <AccelerometerContext.Provider value={{posX, posY}}>{children}</AccelerometerContext.Provider>
+  return {pathRef, setFlubberIndex}
 }
-
-export type ParallaxConfig = {
-  sensitivity?: number
-}
-
-export type ParallaxObject = {
-  animStyle: ReturnType<typeof useAnimatedStyle>
-  posY: Animated.SharedValue<number>
-  posX: Animated.SharedValue<number>
-}
-
-export const useParallax = (config?: ParallaxConfig): ParallaxObject => {
-  const sensitivity = config?.sensitivity || 1
-  const {posY, posX} = useContext(AccelerometerContext)
-
-  const animStyle = useAnimatedStyle(() => {
-    const getSensitivity = (value: number) => {
-      'worklet'
-      return value * sensitivity || 0
-    }
-    return {
-      transform: [{translateY: getSensitivity(posY.value)}, {translateX: getSensitivity(posX.value)}],
-    }
-  })
-
-  return {animStyle, posX, posY}
-}
+export default useFlubber
