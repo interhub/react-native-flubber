@@ -1,6 +1,6 @@
 {
   "name": "react-native-flubber",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "react native flubber wrapper for ios and android to set up animation  to path component props",
   "main": "index.tsx",
   "scripts": {
@@ -29,7 +29,5 @@
   },
   "types": "index.d.tsx",
   "homepage": "https://github.com/interhub/react-native-flubber",
-  "dependencies": {
-    "https://github.com/interhub/react-native-flubber": "*"
-  }
+  "dependencies": {}
 }

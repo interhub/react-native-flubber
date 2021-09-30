@@ -22,6 +22,11 @@ TS only.
 
 [react-native-svg](https://github.com/react-native-svg/react-native-svg)
 
+3. and you may be need to react-native-reanimated
+
+[react-native-reanimated](https://github.com/software-mansion/react-native-reanimated)
+ 
+
 # Usage
 
 ### 1. Wrap your root App.tsx to ParallaxProvider to provide context value for hooks.
