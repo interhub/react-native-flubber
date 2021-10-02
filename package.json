@@ -5,7 +5,8 @@
   "main": "index.tsx",
   "scripts": {
     "publish": "sudo npm publish --access=public",
-    "build": "npx tsc -p ./index.tsx -d"
+    "build": "npx tsc -p ./index.tsx -d",
+    "save": "git add . && git commit -m \"auto save\" && git push origin master"
   },
   "keywords": [
     "react-native",
