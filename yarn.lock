@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-react-native-accelerometer-parallax@^1.5.6:
-  version "1.5.6"
-  resolved "https://registry.yarnpkg.com/react-native-accelerometer-parallax/-/react-native-accelerometer-parallax-1.5.6.tgz#b9720a7eca90be5a78d634a0b7cc65d7c1876aa9"
-  integrity sha512-tmmvv67EWHBYge6SXBoSAjQeY4muQKvyVPJRJthwj6di19Z1z1H5aAGOXid5clrKN0ISYP+bzPZUqWOZe5BXxg==
+react-native-flubber@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-flubber/-/react-native-flubber-2.0.2.tgz#bb9e7ba77b931d5f5489c9d4ec0b60a84d18ad38"
+  integrity sha512-lrBJGOIYRQ8nlDOwrKe5Pc82Weg4pPDY5AnqH4KT8cZBpmytDhWLB7cfAZDbr9624aCFTPf3mdBEsukIe+xnAw==

@@ -1,6 +1,6 @@
 {
   "name": "react-native-flubber",
-  "version": "1.0.5",
+  "version": "2.0.5",
   "description": "react native flubber wrapper for ios and android to set up animation  to path component props",
   "main": "index.tsx",
   "scripts": {
@@ -21,13 +21,13 @@
   "author": "interhub",
   "license": "MIT",
   "peerDependencies": {
+    "flubber": "^0.4.2",
     "react": "*",
-    "flubber": "^0.4.2"
+    "react-native-reanimated": "*"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
   "types": "index.d.tsx",
-  "homepage": "https://github.com/interhub/react-native-flubber",
-  "dependencies": {}
+  "homepage": "https://github.com/interhub/react-native-flubber"
 }
