@@ -19,6 +19,8 @@ export const useFlubber = (paths: string[], config?: FlubberConfig) => {
     const initialPath = paths[initialIndex]
     const [currentPath, setCurrentPath] = useState(initialPath)
     const sharedPathValue = useSharedValue(initialPath)
+    const [isProgress, setIsProgress] = useState(false)
+    const [progressPath, setProgressPath] = useState(initialPath)
 
     const animatedProps = useAnimatedProps(() => ({
         d: sharedPathValue.value,
@@ -32,7 +34,7 @@ export const useFlubber = (paths: string[], config?: FlubberConfig) => {
 
     useEffect(() => {
         let requestAnimationId: any
-        const startPath = currentPath
+        const startPath = isProgress ? progressPath : currentPath
         const endPath = paths[currentIndex]
         if (!startPath || !endPath) return
         const interpolator = flubber.interpolate(startPath, endPath)
@@ -40,6 +42,7 @@ export const useFlubber = (paths: string[], config?: FlubberConfig) => {
         if (startPath === endPath) return
         const setFrame = (val: number) => {
             if (val >= 1 || val < 0) {
+                setIsProgress(false)
                 const newPathState = paths[currentIndex]
                 setNativePathProps(newPathState, 1)
                 if (!newPathState) return
@@ -47,10 +50,12 @@ export const useFlubber = (paths: string[], config?: FlubberConfig) => {
                 return
             }
             const newPath = interpolator(val)
+            setProgressPath(newPath)
             setNativePathProps(newPath, val)
             const nextValue = val + step
             requestAnimationId = requestAnimationFrame(() => setFrame(nextValue))
         }
+        setIsProgress(true)
         setFrame(0)
         return () => {
             cancelAnimationFrame(requestAnimationId)

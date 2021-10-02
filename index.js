@@ -11,6 +11,8 @@ exports.useFlubber = function (paths, config) {
     var initialPath = paths[initialIndex];
     var _b = react_1.useState(initialPath), currentPath = _b[0], setCurrentPath = _b[1];
     var sharedPathValue = react_native_reanimated_1.useSharedValue(initialPath);
+    var _c = react_1.useState(false), isProgress = _c[0], setIsProgress = _c[1];
+    var _d = react_1.useState(initialPath), progressPath = _d[0], setProgressPath = _d[1];
     var animatedProps = react_native_reanimated_1.useAnimatedProps(function () { return ({
         d: sharedPathValue.value
     }); });
@@ -21,7 +23,7 @@ exports.useFlubber = function (paths, config) {
     };
     react_1.useEffect(function () {
         var requestAnimationId;
-        var startPath = currentPath;
+        var startPath = isProgress ? progressPath : currentPath;
         var endPath = paths[currentIndex];
         if (!startPath || !endPath)
             return;
@@ -31,6 +33,7 @@ exports.useFlubber = function (paths, config) {
             return;
         var setFrame = function (val) {
             if (val >= 1 || val < 0) {
+                setIsProgress(false);
                 var newPathState = paths[currentIndex];
                 setNativePathProps(newPathState, 1);
                 if (!newPathState)
@@ -39,10 +42,12 @@ exports.useFlubber = function (paths, config) {
                 return;
             }
             var newPath = interpolator(val);
+            setProgressPath(newPath);
             setNativePathProps(newPath, val);
             var nextValue = val + step;
             requestAnimationId = requestAnimationFrame(function () { return setFrame(nextValue); });
         };
+        setIsProgress(true);
         setFrame(0);
         return function () {
             cancelAnimationFrame(requestAnimationId);

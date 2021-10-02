@@ -1,6 +1,6 @@
 {
   "name": "react-native-flubber",
-  "version": "2.0.5",
+  "version": "2.1.0",
   "description": "react native flubber wrapper for ios and android to set up animation  to path component props",
   "main": "index.tsx",
   "scripts": {
